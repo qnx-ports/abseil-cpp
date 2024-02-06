@@ -13,5 +13,5 @@
 	<requires value="suppress-library: autogen"/>
 	<provides value="suppress-library: autogen"/>
 
-	<asset dest="${targetfolder}/[ARCH]/usr/bin/abseil-cpp_tests" />
+	<asset dest="${targetfolder}/[ARCH]/usr/local/bin/abseil-cpp_tests" />
 </shiplist>
