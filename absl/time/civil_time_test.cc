@@ -14,6 +14,9 @@
 
 #include "absl/time/civil_time.h"
 
+#ifdef __QNX__
+#include <iomanip>
+#endif
 #include <limits>
 #include <sstream>
 #include <type_traits>
