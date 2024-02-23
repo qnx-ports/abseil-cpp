@@ -18,7 +18,7 @@
 #if defined(ABSL_HAVE_ALARM)
 #include <signal.h>
 #include <unistd.h>
-#ifdef _AIX
+#if defined(_AIX) || defined(__QNX__)
 // sig_t is not defined in AIX.
 typedef void (*sig_t)(int);
 #endif

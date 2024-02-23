@@ -188,35 +188,36 @@ add_subdirectory(absl)
 if(ABSL_ENABLE_INSTALL)
   
 
-  # install as a subdirectory only
-  install(EXPORT ${PROJECT_NAME}Targets
-    NAMESPACE absl::
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
-  )
-
-  configure_package_config_file(
-    CMake/abslConfig.cmake.in
-    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-    INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
-  )
-  install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
-  )
-
-  # Abseil only has a version in LTS releases.  This mechanism is accomplished
-  # Abseil's internal Copybara (https://github.com/google/copybara) workflows and
-  # isn't visible in the CMake buildsystem itself.
-  if(absl_VERSION)
-    write_basic_package_version_file(
-      "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-      COMPATIBILITY ExactVersion
-    )
-
-    install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+    # install as a subdirectory only
+    install(EXPORT ${PROJECT_NAME}Targets
+      NAMESPACE absl::
       DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
     )
-  endif()  # absl_VERSION
 
+    configure_package_config_file(
+      CMake/abslConfig.cmake.in
+      "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+      INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+    )
+    install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+      DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+    )
+
+    # Abseil only has a version in LTS releases.  This mechanism is accomplished
+    # Abseil's internal Copybara (https://github.com/google/copybara) workflows and
+    # isn't visible in the CMake buildsystem itself.
+    if(absl_VERSION)
+      write_basic_package_version_file(
+        "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+        COMPATIBILITY ExactVersion
+      )
+
+      install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+      )
+    endif()  # absl_VERSION
+  endif() # NOT QNX
+  
   install(DIRECTORY absl
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING
@@ -266,5 +267,14 @@ if(ABSL_ENABLE_INSTALL)
   install(FILES "${CMAKE_BINARY_DIR}/options-pinned.h"
          DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/absl/base
          RENAME "options.h")
-
+  
+  if(QNX)
+    install(DIRECTORY ${CMAKE_BINARY_DIR}/bin/
+      DESTINATION bin/abseil-cpp_tests
+    )
+  endif()
 endif()  # ABSL_ENABLE_INSTALL
+
+if(QNX)
+  add_compile_options(-Wno-stringop-overread -Wno-free-nonheap-object -Wno-deprecated-declarations)
+endif()
