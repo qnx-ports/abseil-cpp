@@ -25,6 +25,7 @@
 #ifdef ABSL_INTERNAL_HAVE_DEBUGGING_STACK_CONSUMPTION
 #error ABSL_INTERNAL_HAVE_DEBUGGING_STACK_CONSUMPTION cannot be set directly
 #elif !defined(__APPLE__) && !defined(_WIN32) && !defined(__Fuchsia__) && \
+    !(defined(__QNX__) && __QNX__ < 800) && \
     (defined(__i386__) || defined(__x86_64__) || defined(__ppc__) || \
      defined(__aarch64__) || defined(__riscv))
 #define ABSL_INTERNAL_HAVE_DEBUGGING_STACK_CONSUMPTION 1
