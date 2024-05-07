@@ -267,7 +267,7 @@ if(ABSL_ENABLE_INSTALL)
          DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/absl/base
          RENAME "options.h")
   
-  if(QNX)
+  if(QNX AND ABSL_BUILD_TESTING)
     install(DIRECTORY ${CMAKE_BINARY_DIR}/bin/
       DESTINATION bin/abseil-cpp_tests
     )
