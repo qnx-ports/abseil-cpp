@@ -43,7 +43,8 @@
 // this, consider moving both to config.h instead.
 #if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || \
     defined(__Fuchsia__) || defined(__native_client__) ||               \
-    defined(__OpenBSD__) || defined(__EMSCRIPTEN__) || defined(__ASYLO__)
+    defined(__OpenBSD__) || defined(__EMSCRIPTEN__) ||                  \
+    defined(__ASYLO__) || defined(__QNX__)
 
 #include <unistd.h>
 
