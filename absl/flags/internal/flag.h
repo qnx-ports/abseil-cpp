@@ -373,6 +373,10 @@ class MaskedPointer {
 
   static constexpr int RequiredAlignment() { return 4; }
 
+  #if defined(__QNX__)
+  // FIX ME: QNX atomic load will create a temporary object instance using default ctor
+  constexpr MaskedPointer() : ptr_(nullptr) {}
+  #endif
   constexpr explicit MaskedPointer(ptr_t rhs) : ptr_(rhs) {}
   MaskedPointer(ptr_t rhs, bool is_candidate);
 
