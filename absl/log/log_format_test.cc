@@ -657,8 +657,8 @@ TYPED_TEST(VoidPtrLogFormatTest, NonNull) {
   EXPECT_CALL(
       test_sink,
       Send(AllOf(TextMessage(MatchesOstream(comparison_stream)),
-                 TextMessage(AnyOf(Eq("0xdeadbeef"), Eq("DEADBEEF"),
-                                   Eq("00000000DEADBEEF"))),
+                 TextMessage(AnyOf(Eq("0xdeadbeef"), Eq("deadbeef"),
+                                   Eq("DEADBEEF"), Eq("00000000DEADBEEF"))),
                  ENCODED_MESSAGE(HasValues(ElementsAre(
                      AnyOf(EqualsProto(R"pb(str: "0xdeadbeef")pb"),
                            EqualsProto(R"pb(str: "00000000DEADBEEF")pb"))))))));

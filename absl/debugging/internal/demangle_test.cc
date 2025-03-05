@@ -2028,12 +2028,16 @@ TEST(DemangleStringTest, SupportsSymbolNameReturnedByTypeId) {
   // We want to test that `DemangleString` can demangle the symbol names
   // returned by `typeid`, but without hard-coding the actual demangled values
   // (because they are platform-specific).
+
+  // QNX does not have symbol names of the form ns1.*ns2.*ns3.*::Class
+#ifndef __QNX__
   EXPECT_THAT(
       DemangleString(typeid(Base).name()),
       ContainsRegex("absl.*debugging_internal.*anonymous namespace.*::Base"));
   EXPECT_THAT(DemangleString(typeid(Derived).name()),
               ContainsRegex(
                   "absl.*debugging_internal.*anonymous namespace.*::Derived"));
+#endif
 }
 
 }  // namespace
