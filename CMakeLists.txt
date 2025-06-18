@@ -213,7 +213,7 @@ if(ABSL_ENABLE_INSTALL)
       DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
     )
   endif()  # absl_VERSION
-  
+
   install(DIRECTORY absl
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING
@@ -263,10 +263,10 @@ if(ABSL_ENABLE_INSTALL)
   install(FILES "${CMAKE_BINARY_DIR}/options-pinned.h"
          DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/absl/base
          RENAME "options.h")
-  
+
   if(QNX AND ABSL_BUILD_TESTING)
     install(DIRECTORY ${CMAKE_BINARY_DIR}/bin/
-      DESTINATION bin/abseil-cpp_tests
+      DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
   endif()
 endif()  # ABSL_ENABLE_INSTALL
