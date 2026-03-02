@@ -338,28 +338,15 @@ absl_cc_test(
 )
 
 # Internal-only target, do not depend on directly.
-absl_cc_library(
-  NAME
-    atomic_hook_test_helper
-  SRCS
-    "internal/atomic_hook_test_helper.cc"
-  COPTS
-    ${ABSL_TEST_COPTS}
-  DEPS
-    absl::atomic_hook
-    absl::core_headers
-  TESTONLY
-)
 
 absl_cc_test(
   NAME
     atomic_hook_test
   SRCS
-    "internal/atomic_hook_test.cc"
+    "internal/atomic_hook_test.cc" "internal/atomic_hook_test_helper.cc"
   COPTS
     ${ABSL_TEST_COPTS}
   DEPS
-    absl::atomic_hook_test_helper
     absl::atomic_hook
     absl::core_headers
     GTest::gmock

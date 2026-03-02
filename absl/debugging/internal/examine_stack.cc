@@ -36,6 +36,10 @@
 #include <csignal>
 #include <cstdio>
 
+#if defined(__powerpc__)
+#include <asm/ptrace.h>
+#endif
+
 #include "absl/base/attributes.h"
 #include "absl/base/internal/raw_logging.h"
 #include "absl/base/macros.h"
@@ -177,8 +181,10 @@ void* GetProgramCounter(void* const vuc) {
     return reinterpret_cast<void*>(context->uc_mcontext.pc);
 #elif defined(__powerpc64__)
     return reinterpret_cast<void*>(context->uc_mcontext.gp_regs[32]);
+#elif defined(__powerpc__) && defined(__GLIBC__)
+    return reinterpret_cast<void*>(context->uc_mcontext.regs->nip);
 #elif defined(__powerpc__)
-    return reinterpret_cast<void*>(context->uc_mcontext.uc_regs->gregs[32]);
+    return reinterpret_cast<void*>(((struct pt_regs *)context->uc_regs)->nip);
 #elif defined(__riscv)
     return reinterpret_cast<void*>(context->uc_mcontext.__gregs[REG_PC]);
 #elif defined(__s390__) && !defined(__s390x__)
