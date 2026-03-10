@@ -307,15 +307,10 @@ Cflags: -I\${includedir}${PC_CFLAGS}\n")
       target_compile_features(${_NAME} PUBLIC ${ABSL_INTERNAL_CXX_STD_FEATURE})
     endif()
 
-    # When being installed, we lose the absl_ prefix.  We want to put it back
-    # to have properly named lib files.  This is a no-op when we are not being
-    # installed.
-    if(ABSL_ENABLE_INSTALL)
-      set_target_properties(${_NAME} PROPERTIES
-        OUTPUT_NAME "absl_${_NAME}"
-        SOVERSION "${ABSL_SOVERSION}"
-      )
-    endif()
+    set_target_properties(${_NAME} PROPERTIES
+      OUTPUT_NAME "absl_${_NAME}"
+      SOVERSION "${ABSL_SOVERSION}"
+    )
   else()
     # Generating header-only library
     add_library(${_NAME} INTERFACE)
