@@ -95,11 +95,7 @@ function(absl_cc_library)
     return()
   endif()
 
-  if(ABSL_ENABLE_INSTALL)
-    set(_NAME "${ABSL_CC_LIB_NAME}")
-  else()
-    set(_NAME "absl_${ABSL_CC_LIB_NAME}")
-  endif()
+  set(_NAME "${ABSL_CC_LIB_NAME}")
 
   # Check if this is a header-only library
   # Note that as of February 2019, many popular OS's (for example, Ubuntu
