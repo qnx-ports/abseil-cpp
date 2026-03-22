@@ -129,6 +129,12 @@
 #define ABSL_HAVE_ACCELERATED_AES 0
 #endif
 
+// QNX does not allow AES.
+#if defined(__QNX__)
+#undef ABSL_HAVE_ACCELERATED_AES
+#define ABSL_HAVE_ACCELERATED_AES 0
+#endif
+
 // ABSL_RANDOM_INTERNAL_AES_DISPATCH indicates whether the currently active
 // platform has, or should use run-time dispatch for selecting the
 // accelerated Randen implementation.
